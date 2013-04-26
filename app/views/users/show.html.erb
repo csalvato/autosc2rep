@@ -1,0 +1,11 @@
+<h1>Show User</h1>
+Name: <%= current_user.name %><br/>
+
+<% @replays.each do |replay| %>
+Date: <%= replay.game.time %><br/>
+Players: <%= replay.players.count %><br/>
+Player 1: <%= replay.players.first.name %><br/>
+Player 2: <%= replay.players.second.name %><br/>
+<br/>
+<br/>
+<% end %>

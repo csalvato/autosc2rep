@@ -1,5 +1,5 @@
 AutoSC2Rep::Application.routes.draw do
-  resources :users, except: [:index, :show, :destroy]
+  resources :users, except: [:index, :destroy]
   
   resources :sessions, only: [:new, :create, :destroy]
 
