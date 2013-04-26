@@ -1,0 +1,10 @@
+<h1>Home</h1>
+<% if signed_in? %>
+<%= current_user.name %>
+<%= link_to "Sign out", signout_path, method: "delete" %>
+
+<% if current_user.dropbox_access_key != nil %>
+Your account is linked to Dropbox.
+<% end %>
+
+<% end %>

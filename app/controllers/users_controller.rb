@@ -19,8 +19,6 @@ class UsersController < ApplicationController
   end
 
 	def show
-		@user = User.first
-		sign_in(@user)
 		@replays = current_user.replays.all
 	end
 

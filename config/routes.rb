@@ -2,14 +2,21 @@ AutoSC2Rep::Application.routes.draw do
   get "replay/download"
 
   resources :users, except: [:index, :destroy]
-  
   resources :sessions, only: [:new, :create, :destroy]
+
+  match '/signup', to: 'users#new'
+
+  match '/signin', to: 'sessions#new'
+  match '/signout', to: 'sessions#destroy', via: :delete
 
   match '/authorize',                     to: 'dropbox#authorize'
   match '/authcallback',                  to: 'dropbox#authorized_callback'
   put   '/update-replays',                to: 'dropbox#update_replays'
   match '/download/:replay_id',           to: 'replay#download', as: "download"
 
+  # You can have the root of your site routed with "root"
+  # just remember to delete public/index.html.
+  root :to => 'static_pages#home'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
