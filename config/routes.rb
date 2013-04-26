@@ -1,4 +1,12 @@
-SearchWordCreator::Application.routes.draw do
+AutoSC2Rep::Application.routes.draw do
+  resources :users, except: [:index, :show, :destroy]
+  
+  resources :sessions, only: [:new, :create, :destroy]
+
+  match '/authorize',    to: 'dropbox#authorize'
+  match '/authcallback',    to: 'dropbox#authorized_callback'
+
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

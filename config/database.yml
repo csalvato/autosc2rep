@@ -1,13 +1,13 @@
 development:
   adapter: postgresql
-  database: ruby_sample_app
+  database: autosc2app
   host: localhost
   pool: 5
   timeout: 5000
 
 test: &test
   adapter: postgresql
-  database: ruby_sample_app_test
+  database: autosc2app_test
   host: localhost
   pool: 5
   timeout: 5000

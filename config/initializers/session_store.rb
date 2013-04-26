@@ -1,8 +1,8 @@
 # Be sure to restart your server when you modify this file.
 
-SearchWordCreator::Application.config.session_store :cookie_store, key: '_search_word_creator_session'
+AutoSC2Rep::Application.config.session_store :cookie_store, key: '_auto_sc2_rep_session'
 
 # Use the database for sessions instead of the cookie-based default,
 # which shouldn't be used to store highly confidential information
 # (create the session table with "rails generate session_migration")
-# SearchWordCreator::Application.config.session_store :active_record_store
+# AutoSC2Rep::Application.config.session_store :active_record_store

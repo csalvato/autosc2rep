@@ -4,4 +4,4 @@
 
 require File.expand_path('../config/application', __FILE__)
 
-SearchWordCreator::Application.load_tasks
+AutoSC2Rep::Application.load_tasks
