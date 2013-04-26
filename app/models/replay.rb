@@ -27,4 +27,5 @@ class Replay < ActiveRecord::Base
   								:player2id, :player2name, :player2race
 
   belongs_to :user
+
 end

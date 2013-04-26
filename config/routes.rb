@@ -1,4 +1,6 @@
 AutoSC2Rep::Application.routes.draw do
+  get "replay/download"
+
   resources :users, except: [:index, :destroy]
   
   resources :sessions, only: [:new, :create, :destroy]
@@ -6,7 +8,7 @@ AutoSC2Rep::Application.routes.draw do
   match '/authorize',                     to: 'dropbox#authorize'
   match '/authcallback',                  to: 'dropbox#authorized_callback'
   put   '/update-replays',                to: 'dropbox#update_replays'
-
+  match '/download/:replay_id',           to: 'replay#download', as: "download"
 
 
   # The priority is based upon order of creation:

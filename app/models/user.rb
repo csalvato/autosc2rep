@@ -52,16 +52,19 @@ class User < ActiveRecord::Base
 		self.save!
 
     delta.entries.each do |entry|
-    	filename = entry.path.split('/').last
-    	extension = filename.split('.').last.downcase
+    	path = entry.path.downcase
+    	filename = path.split('/').last
+    	extension = filename.split('.').last
 			if !entry.is_dir && extension == "sc2replay"
-				replay = Replay.find_by_path(entry.path)
+				replay = Replay.find_by_path(path)
+				puts "********Entry: #{entry}******"
 				if entry.is_deleted
+					puts "*******TRYING TO DELETE***********"
 					replay.destroy unless replay.nil?
 				elsif replay.nil? # replay doesn't exist in DB
 	        replay_data = Tassadar::SC2::Replay.new(' ', entry.download)
 	        self.replays.create(name: filename, 
-				        							path: entry.path, 
+				        							path: path, 
 				        							winnerid: replay_data.game.winner.id, 
 				        							time: replay_data.game.time, 
 				        							map: replay_data.game.map, 
@@ -75,7 +78,7 @@ class User < ActiveRecord::Base
 	      else #replay is in the DB (must be updated)
 					replay_data = Tassadar::SC2::Replay.new(' ', entry.download)
 					replay.name = filename
-					replay.path = entry.path
+					replay.path = path
 					replay.winnerid = replay_data.game.winner.id
 					replay.time = replay_data.game.time
 					replay.map = replay_data.game.map

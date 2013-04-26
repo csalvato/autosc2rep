@@ -21,14 +21,7 @@ class UsersController < ApplicationController
 	def show
 		@user = User.first
 		sign_in(@user)
-		# The app token and secret are read from config, that's all you need to have a client ready for one user
-		@client = Dropbox::API::Client.new(:token  => current_user.dropbox_access_key, :secret => current_user.dropbox_access_secret)
-		# The file is a Dropbox::API::File object, so you can call methods on it!
-		@replays = []
-		@client.search('.SC2Replay').each do |file|
-				replay_file = Tassadar::SC2::Replay.new(' ', file.download)
-		  	@replays.push( replay_file )
-		end
+		@replays = current_user.replays.all
 	end
 
   def edit

@@ -2,10 +2,10 @@
 Name: <%= current_user.name %><br/>
 
 <% @replays.each do |replay| %>
-Date: <%= replay.path %><br/>
-Players: <%= replay.players.count %><br/>
-Player 1: <%= replay.players.first.name %><br/>
-Player 2: <%= replay.players.second.name %><br/>
+Date: <%= replay.time %><br/>
+Player 1: <%= replay.player1name %><br/>
+Player 2: <%= replay.player2name %><br/>
+<%= link_to "Download Replay", download_path(replay.id) %>
 <br/>
 <br/>
 <% end %>
