@@ -11,11 +11,16 @@
 #  password_digest       :string(255)
 #  email                 :string(255)
 #  remember_token        :string(255)
+#  dropbox_cursor        :string(255)
 #
 
 class User < ActiveRecord::Base
-  attr_accessible :dropbox_access_key, :dropbox_access_secret, :name, :email, :password, :password_confirmation
+  attr_accessible :dropbox_access_key, :dropbox_access_secret, 
+  								:name, :email, :password, :password_confirmation, 
+  								:dropbox_cursor
   has_secure_password
+	
+	has_many :replays, dependent: :destroy
 
 	before_save { self.email.downcase! }
   before_save :create_remember_token
@@ -38,6 +43,53 @@ class User < ActiveRecord::Base
 			save
 		end
 		return same_date
+	end
+
+	def update_replays 
+    client = Dropbox::API::Client.new(:token  => self.dropbox_access_key, :secret => self.dropbox_access_secret)
+		delta = client.delta(self.dropbox_cursor)
+		self.dropbox_cursor = delta.cursor
+		self.save!
+
+    delta.entries.each do |entry|
+    	filename = entry.path.split('/').last
+    	extension = filename.split('.').last.downcase
+			if !entry.is_dir && extension == "sc2replay"
+				replay = Replay.find_by_path(entry.path)
+				if entry.is_deleted
+					replay.destroy unless replay.nil?
+				elsif replay.nil? # replay doesn't exist in DB
+	        replay_data = Tassadar::SC2::Replay.new(' ', entry.download)
+	        self.replays.create(name: filename, 
+				        							path: entry.path, 
+				        							winnerid: replay_data.game.winner.id, 
+				        							time: replay_data.game.time, 
+				        							map: replay_data.game.map, 
+				        							gametype: replay_data.game.type.to_s, #for some reason this is a ReverseString class, so use to_s to convert to String.
+				  										player1id: replay_data.players.first.id, 
+				  										player1name: replay_data.players.first.name, 
+				  										player1race: replay_data.players.first.actual_race, 
+				  										player2id: replay_data.players.second.id, 
+				  										player2name: replay_data.players.second.name, 
+				  										player2race: replay_data.players.second.actual_race)
+	      else #replay is in the DB (must be updated)
+					replay_data = Tassadar::SC2::Replay.new(' ', entry.download)
+					replay.name = filename
+					replay.path = entry.path
+					replay.winnerid = replay_data.game.winner.id
+					replay.time = replay_data.game.time
+					replay.map = replay_data.game.map
+					replay.gametype = replay_data.game.type.to_s #for some reason this is a ReverseString class, so use to_s to convert to String.
+					replay.player1id = replay_data.players.first.id
+					replay.player1name = replay_data.players.first.name
+					replay.player1race = replay_data.players.first.actual_race
+					replay.player2id = replay_data.players.second.id
+					replay.player2name = replay_data.players.second.name
+					replay.player2race = replay_data.players.second.actual_race
+					replay.save!
+	      end
+      end
+    end
 	end
 
 	def password_changed?

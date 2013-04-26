@@ -11,7 +11,25 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130425234208) do
+ActiveRecord::Schema.define(:version => 20130426151016) do
+
+  create_table "replays", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+    t.time     "time"
+    t.integer  "winnerid"
+    t.string   "map"
+    t.integer  "player1id"
+    t.string   "player1name"
+    t.string   "player1race"
+    t.integer  "player2id"
+    t.string   "player2name"
+    t.string   "player2race"
+    t.string   "path"
+    t.integer  "user_id"
+    t.string   "gametype"
+  end
 
   create_table "users", :force => true do |t|
     t.string   "name"
@@ -22,6 +40,7 @@ ActiveRecord::Schema.define(:version => 20130425234208) do
     t.string   "password_digest"
     t.string   "email"
     t.string   "remember_token"
+    t.string   "dropbox_cursor"
   end
 
 end

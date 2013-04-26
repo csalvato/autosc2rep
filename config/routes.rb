@@ -3,8 +3,10 @@ AutoSC2Rep::Application.routes.draw do
   
   resources :sessions, only: [:new, :create, :destroy]
 
-  match '/authorize',    to: 'dropbox#authorize'
-  match '/authcallback',    to: 'dropbox#authorized_callback'
+  match '/authorize',                     to: 'dropbox#authorize'
+  match '/authcallback',                  to: 'dropbox#authorized_callback'
+  put   '/update-replays',                to: 'dropbox#update_replays'
+
 
 
   # The priority is based upon order of creation:

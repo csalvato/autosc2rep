@@ -11,6 +11,7 @@
 #  password_digest       :string(255)
 #  email                 :string(255)
 #  remember_token        :string(255)
+#  dropbox_cursor        :string(255)
 #
 
 require 'spec_helper'

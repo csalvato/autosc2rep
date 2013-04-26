@@ -26,7 +26,8 @@ class UsersController < ApplicationController
 		# The file is a Dropbox::API::File object, so you can call methods on it!
 		@replays = []
 		@client.search('.SC2Replay').each do |file|
-		  	@replays.push(Tassadar::SC2::Replay.new(' ', file.download))
+				replay_file = Tassadar::SC2::Replay.new(' ', file.download)
+		  	@replays.push( replay_file )
 		end
 	end
 

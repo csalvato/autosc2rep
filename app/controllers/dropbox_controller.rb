@@ -17,6 +17,11 @@ class DropboxController < ApplicationController
     current_user.dropbox_access_key = access_token.token
     current_user.dropbox_access_secret = access_token.secret
     current_user.save!
-    redirect_to 'http://0.0.0.0:3000/'
+    flash[:success] = "Your Dropbox account is now linked.  Your replays will be ready in a few minutes!"
+    redirect_to '/'
+  end
+
+  def update_replays
+    current_user.update_replays
   end
 end
