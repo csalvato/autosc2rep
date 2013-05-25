@@ -1,0 +1,17 @@
+<div class="navbar navbar-static-top">
+	<div class="navbar-inner">
+		<div class="pull-left">
+			<a class="brand" href="#">Repper</a>
+		</div>
+		<div class="pull-right">
+			<ul class="nav">
+				<% if signed_in? %>
+      	<li><p class="navbar-text"><%= current_user.name %></p></li>
+      	<li><%= link_to "Sign out", signout_path, method: "delete" %></li>
+      	<% else %>
+      	<li><%= link_to "Sign in", signin_path %></li>
+      	<% end %>
+    	</ul>
+		</div>
+	</div>
+</div>
