@@ -1,23 +1,9 @@
 <%= render 'shared/error_messages', object: f.object %>
-<ul>
-	<li>
-		<%= f.label :name %>
-		<em>*</em>
-		<%= f.text_field :name %>
-	</li>
-	<li>
-		<%= f.label :email %>
-		<em>*</em>
-		<%= f.text_field :email %>
-	</li>
-	<li>
-		<%= f.label :password %>
-		<em>*</em>
-		<%= f.password_field :password %>
-	</li>
-	<li>
-		<%= f.label :password_confirmation, "Confirmation" %>
-		<em>*</em>
-		<%= f.password_field :password_confirmation %>
-	</li>
-</ul>
+<%= f.label "#{:name} *" %>
+<%= f.text_field :name %>
+<%= f.label "#{:email} *" %>
+<%= f.text_field :email %>
+<%= f.label "#{:password} *" %>
+<%= f.password_field :password %>
+<%= f.label :password_confirmation, "Confirmation *" %>
+<%= f.password_field :password_confirmation %>

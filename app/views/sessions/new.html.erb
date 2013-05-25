@@ -1,18 +1,13 @@
-<%= form_tag sessions_path do%>
-  <h1>Already a member?</h1>
-  <h5>Sign in</h5>
-  <ul>
-    <li>
-      <%= label_tag :email %>
-      <%= text_field_tag :email, params[:email] %>
-    </li>
-    <li>
-      <%= label_tag :password %>
+<div class="container">
+  <%= form_tag sessions_path, class: "well" do %>
+   <h1>Sign In</h1>
+    <%= label_tag :email %>
+    <%= text_field_tag :email, params[:email] %>
+    <%= label_tag :password %>
       <%= password_field_tag :password %>
-    </li>
-  </ul>
-  <div class="signin-button">
+  <div>
     <p>New user? <%= link_to "Sign up now!", signup_path %><p>
-    <%= submit_tag "Sign in", class: "btn" %>
+    <%= submit_tag "Sign in", class: "btn btn-primary btn-large" %>
   </div>
-<% end %>
+    <% end %>
+</div>

@@ -1,11 +1,23 @@
-<h1>Show User</h1>
-Name: <%= current_user.name %><br/>
-
-<% @replays.each do |replay| %>
-Date: <%= replay.time %><br/>
-Player 1: <%= replay.player1name %><br/>
-Player 2: <%= replay.player2name %><br/>
-<%= link_to "Download Replay", download_path(replay.id) %>
-<br/>
-<br/>
-<% end %>
+<div class="container">
+	<h1><%= current_user.name %></h1>
+	<table class="table table-striped">  
+    <thead>  
+      <tr>  
+        <th>Date</th>  
+        <th>Player 1</th>  
+        <th>Player 2</th>  
+        <th></th>  
+      </tr>  
+    </thead> 
+    <tbody>
+    <% @replays.each do |replay| %>  
+      <tr>  
+        <td><%= replay.time %></td>  
+        <td><%= replay.player1name %></td>  
+        <td><%= replay.player2name %></td>  
+        <td><%= link_to "Download Replay", download_path(replay.id) %></td>  
+      </tr>  
+    <% end %>  
+    </tbody>  
+  </table>
+</div>

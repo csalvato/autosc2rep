@@ -1,16 +1,15 @@
-<h1>Home</h1>
-<% if signed_in? %>
-<%= current_user.name %>
-<%= link_to "Sign out", signout_path, method: "delete" %>
-
-<% if current_user.dropbox_access_key != nil %>
-Your account is linked to Dropbox.
-<%= link_to "Your Replays Page", user_path(current_user.id) %>
-<% else %>
-Your account is not linked to Dropbox.
-<%= link_to "Link your account now", authorize_path %>
-<% end %>
-
-<% else %>
-<%= link_to "Sign in", signin_path %>
-<% end %>
+<div class="container">
+	<div class="hero-unit">
+	  <h1>Get New, Hot Pro Replays</h1>
+	  <p>The Hottest Replays - Instantly.  Repper automatically pulls replays from pro players as they stream and play games.</p>
+	  <p>
+	  	<% if signed_in? %>
+				<% if current_user.dropbox_access_key != nil %>
+				<%= link_to "Go To Your Replays Page", user_path(current_user.id), class: "btn btn-primary btn-large" %>
+				<% else %>
+				<%= link_to "Link your account to Dropbox now", authorize_path, class: "btn btn-primary btn-large" %>
+				<% end %>
+			<% end %>
+	  </p>
+	</div>
+</div>

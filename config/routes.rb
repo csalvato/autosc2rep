@@ -1,7 +1,7 @@
 AutoSC2Rep::Application.routes.draw do
   get "replay/download"
 
-  resources :users, except: [:index, :destroy]
+  resources :users, except: [:index, :destroy, :edit]
   resources :sessions, only: [:new, :create, :destroy]
 
   match '/signup', to: 'users#new'
