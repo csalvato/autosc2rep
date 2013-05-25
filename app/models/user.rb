@@ -49,6 +49,7 @@ class User < ActiveRecord::Base
     client = Dropbox::API::Client.new(:token  => self.dropbox_access_key, :secret => self.dropbox_access_secret)
 		delta = client.delta(self.dropbox_cursor)
 		self.dropbox_cursor = delta.cursor
+		puts "CURSOR: #{delta.cursor}"
 		self.save!
 
     delta.entries.each do |entry|

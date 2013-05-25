@@ -5,6 +5,12 @@
 
 <% if current_user.dropbox_access_key != nil %>
 Your account is linked to Dropbox.
+<%= link_to "Your Replays Page", user_path(current_user.id) %>
+<% else %>
+Your account is not linked to Dropbox.
+<%= link_to "Link your account now", authorize_path %>
 <% end %>
 
+<% else %>
+<%= link_to "Sign in", signin_path %>
 <% end %>

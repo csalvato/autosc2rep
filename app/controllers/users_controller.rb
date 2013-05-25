@@ -19,7 +19,8 @@ class UsersController < ApplicationController
   end
 
 	def show
-		@replays = current_user.replays.all
+		current_user.update_replays
+    @replays = current_user.replays.all
 	end
 
   def edit
